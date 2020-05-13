@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
-    <v-row class="text-center">
-      <v-col cols="12" md="12">
+    <v-row wrap>
+      <v-col cols="12" sm="12" md="12">
         <v-card elevation="7">
-          <v-carousel>
+          <v-carousel cycle height="500" hide-delimiter-background show-arrows-on-hover>
             <v-carousel-item
               v-for="item in slideItems"
               :key="item.id"
@@ -11,21 +11,42 @@
               reverse-transition="fade-transition"
               transition="fade-transition"
             >
-              <h3 class="title text-uppercase">{{ item.title }}</h3>
+              <v-sheet>
+                <h3
+                  class="subtitle-2 float-xs-left text-center title white--text text-uppercase font-weight-bold"
+                >{{ item.title }}</h3>
+              </v-sheet>
             </v-carousel-item>
           </v-carousel>
         </v-card>
+      </v-col>
+    </v-row>
 
-        <!-- 
-        <v-carousel cycle height="400" hide-delimiter-background show-arrows-on-hover>
-          <v-carousel-item v-for="(slide, i) in slides" :key="i">
-            <v-sheet :color="colors[i]" height="100%">
-              <v-row class="fill-height" align="center" justify="center">
-                <div class="display-3">{{ slide }} Slide</div>
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-        </v-carousel>-->
+    <v-row wrap>
+      <v-col cols="4"></v-col>
+      <v-col cols="4">
+        <h2 class="text-center text-uppercase purple--text pt-7 pb-7">{{ latest }}</h2>
+      </v-col>
+      <v-col cols="4"></v-col>
+      <!-- end of title -->
+
+      <v-col cols="12" sm="4" md="4">
+        <v-img src="https://picsum.photos/510/300?random">
+          <v-row align="end" class="lightbox white--text pa-2 fill-height">
+            <v-col>
+              <div class="subheading">Digital Marketting Lee</div>
+              <div class="body-1">heyfromjonathan@gmail.com</div>
+            </v-col>
+          </v-row>
+        </v-img>
+      </v-col>
+
+      <v-col cols="12" sm="4" md="4">
+        <v-img src="https://picsum.photos/510/300?random"></v-img>
+      </v-col>
+
+      <v-col cols="12" sm="4" md="4">
+        <v-img src="https://picsum.photos/510/300?random"></v-img>
       </v-col>
     </v-row>
   </v-container>
@@ -35,11 +56,12 @@
 export default {
   data() {
     return {
+      latest: "Latest blog Post",
       slideItems: [
         {
           src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
           id: "adfadsgmkjl,k",
-          title: "static",
+          title: "Web Development",
           time: "6:58pm",
           location: "Kaduna",
           date: "2019-05-06"
@@ -47,7 +69,7 @@ export default {
         {
           src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
           id: "fjgfjgfjfgjjgmn ",
-          title: "static",
+          title: "Graphics design",
           time: "6:58pm",
           location: "Kaduna",
           date: "2019-05-06"
@@ -55,7 +77,7 @@ export default {
         {
           src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
           id: "gtrgtrgrtrththt",
-          title: "static",
+          title: "Digital marketing",
           time: "6:58pm",
           location: "Kaduna",
           date: "2019-05-06"
@@ -63,7 +85,7 @@ export default {
         {
           src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
           id: "bhdghgjgjhjhjh",
-          title: "static",
+          title: "Mobile App dev",
           time: "6:58pm",
           location: "Kaduna",
           date: "2019-05-06"
@@ -77,10 +99,11 @@ export default {
 <style scoped>
 .title {
   position: absolute;
-  top: 367px;
-  left: 700px;
-  background-color: rgba(0, 0, 0, 0.5);
+  top: 257px;
+  left: 690px;
+  background-color: purple;
   color: #ffffff;
   padding: 20px;
+  opacity: 0.7;
 }
 </style>

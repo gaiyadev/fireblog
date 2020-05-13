@@ -1,13 +1,14 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row class="text-center">
-      <v-col cols="2"></v-col>
-      <v-col cols="8">
+      <v-col cols="3"></v-col>
+      <v-col cols="12" sm="12" md="6">
         <!-- <v-card v-if="error" elevation="11">
           <alert @dismissed="onDismissed" :text="error.message"></alert>
         </v-card>-->
         <v-card elevation="11" class="pt-10">
-          <h2 class="purple--text">{{ title }}</h2>
+          <h2 class="purple--text text-uppercase">{{ title }}</h2>
+          <v-divider color="purple" class="mt-2"></v-divider>
           <v-form
             @submit.prevent="onSignup"
             ref="form"
@@ -71,7 +72,7 @@
           </v-form>
         </v-card>
       </v-col>
-      <v-col cols="2"></v-col>
+      <v-col cols="3"></v-col>
     </v-row>
   </v-container>
 </template>
