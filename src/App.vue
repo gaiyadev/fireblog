@@ -1,56 +1,86 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-navigation-drawer v-model="drawer" absolute temporary elevation="9">
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="white--text text-uppercase">FireBlog</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list dense>
+        <v-list-item v-for="item in menuItems" :key="item.title" link router :to="item.href">
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-app-bar app color="primary" dark elevation="9">
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="hidden-md-and-up"></v-app-bar-nav-icon>
+
       <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+        <h2>
+          <router-link style="text-decoration:none;" class="white--text" id="log" to="/">FireBlog</router-link>
+        </h2>
       </div>
-
       <v-spacer></v-spacer>
-
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
         text
+        class="hidden-xs-only"
+        v-for="link in menuItems"
+        :key="link.title"
+        router
+        :to="link.href"
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+        <span class="mr-2">{{ link.title }}</span>
+        <v-icon>{{ link.icon }}</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-content>
-      <HelloWorld />
+      <!-- <HelloWorld /> -->
+      <vue-page-transition name="fade-in-right">
+        <router-view></router-view>
+      </vue-page-transition>
     </v-content>
+    <v-footer color="primary" padless>
+      <v-row justify="center" no-gutters>
+        <v-btn v-for="link in links" :key="link" color="white" text rounded class="my-2">{{ link }}</v-btn>
+        <v-col class="primary lighten-1 py-4 text-center white--text" cols="12">
+          {{ new Date().getFullYear() }} —
+          <strong>VueJS FireBlog</strong>
+        </v-col>
+      </v-row>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-
 export default {
   name: "App",
-
-  components: {
-    HelloWorld
-  },
+  components: {},
 
   data: () => ({
-    //
+    drawer: false,
+    links: ["Proudly powered by Vuetify + firebase"],
+    menuItems: [
+      {
+        title: "Login",
+        icon: "perm_identity",
+        href: "/login"
+      },
+      {
+        title: "Register",
+        icon: "supervisor_account",
+        href: "/register"
+      }
+    ]
   })
 };
 </script>
