@@ -25,6 +25,14 @@ const routes = [
     meta: { transition: 'zoom' }
   },
   {
+    path: "/readPost",
+    name: "ReadPost",
+    component: () =>
+      import("../views/ReadPost.vue"),
+    meta: { transition: 'zoom' }
+  },
+  // Dashboard Routes
+  {
     path: "/dashboard",
     name: "Dashboard",
     component: () =>
@@ -34,7 +42,7 @@ const routes = [
         path: "/profile",
         name: "Profile",
         component: () =>
-          import(/* webpackChunkName: "about" */ "../views/dashboard/Profile"),
+          import("../views/dashboard/Profile"),
         meta: { transition: 'zoom' }
 
       },
@@ -42,7 +50,7 @@ const routes = [
         path: "/change_password",
         name: "ChangePassword",
         component: () =>
-          import(/* webpackChunkName: "about" */ "../views/dashboard/ChangePassword"),
+          import("../views/dashboard/ChangePassword"),
         meta: { transition: 'zoom' }
 
       },
@@ -50,7 +58,7 @@ const routes = [
         path: "/create_post",
         name: "CreatePost",
         component: () =>
-          import(/* webpackChunkName: "about" */ "../views/dashboard/CreatePost"),
+          import("../views/dashboard/CreatePost"),
         meta: { transition: 'zoom' }
 
       },
@@ -58,7 +66,7 @@ const routes = [
         path: "/view_post",
         name: "ViewPost",
         component: () =>
-          import(/* webpackChunkName: "about" */ "../views/dashboard/ViewPost"),
+          import("../views/dashboard/ViewPost"),
         meta: { transition: 'zoom' }
 
       },
@@ -66,18 +74,19 @@ const routes = [
         path: "/category",
         name: "Category",
         component: () =>
-          import(/* webpackChunkName: "about" */ "../views/dashboard/Category"),
+          import("../views/dashboard/Category"),
         meta: { transition: 'zoom' }
 
+      },
+      {
+        path: "",
+        component: () =>
+          import("../views/dashboard/CreatePost")
       },
 
     ],
   },
-  {
-    path: "",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/dashboard/Index")
-  },
+
 ];
 
 const router = new VueRouter({

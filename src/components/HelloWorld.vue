@@ -13,7 +13,7 @@
             >
               <v-sheet>
                 <h3
-                  class="subtitle-2 float-xs-left text-center title white--text text-uppercase font-weight-bold"
+                  class="subtitle-2 float-sm-left text-center title white--text text-uppercase font-weight-bold"
                 >{{ item.title }}</h3>
               </v-sheet>
             </v-carousel-item>
@@ -32,10 +32,10 @@
       <!-- end of title -->
 
       <v-col cols="12" sm="4" md="4">
-        <v-img src="https://picsum.photos/510/300?random">
+        <v-img src="https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg" height="300">
           <v-row align="end" class="lightbox white--text pa-2 fill-height">
             <v-col>
-              <div class="subheading">Digital Marketting Lee</div>
+              <div class="subheading float-left">Digital Marketting Lee</div>
               <div class="body-1">heyfromjonathan@gmail.com</div>
             </v-col>
           </v-row>
@@ -43,11 +43,11 @@
       </v-col>
 
       <v-col cols="12" sm="4" md="4">
-        <v-img src="https://picsum.photos/510/300?random"></v-img>
+        <v-img src="https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg" height="300"></v-img>
       </v-col>
 
       <v-col cols="12" sm="4" md="4">
-        <v-img src="https://picsum.photos/510/300?random"></v-img>
+        <v-img src="https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg" height="300"></v-img>
       </v-col>
     </v-row>
   </v-container>
@@ -106,5 +106,55 @@ export default {
   color: #ffffff;
   padding: 20px;
   opacity: 0.7;
+}
+@media only screen and (max-width: 600px) {
+  .title {
+    position: absolute;
+    top: 257px;
+    left: 65px;
+    padding: 20px;
+  }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .title {
+    position: absolute;
+    top: 257px;
+    left: 65px;
+    padding: 20px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .title {
+    position: absolute;
+    top: 257px;
+    left: 195px;
+    padding: 20px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .title {
+    position: absolute;
+    top: 257px;
+    left: 465px;
+    padding: 20px;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .title {
+    position: absolute;
+    top: 257px;
+    left: 690px;
+    background-color: purple;
+    color: #ffffff;
+    padding: 20px;
+    opacity: 0.7;
+  }
 }
 </style>
