@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row wrap>
+    <v-row wrap class="mt-n7 ml-n10 mr-n11">
       <v-col cols="12" sm="12" md="12">
         <v-card elevation="7">
           <v-carousel cycle height="500" hide-delimiter-background show-arrows-on-hover>
@@ -23,11 +23,12 @@
     </v-row>
 
     <v-row wrap>
-      <v-col cols="4"></v-col>
-      <v-col cols="4">
+      <v-col cols="4" sm="8" md="3"></v-col>
+      <v-col cols="12" sm="8" md="6">
         <h2 class="text-center text-uppercase purple--text pt-7 pb-7">{{ latest }}</h2>
+        <v-divider color="purple"></v-divider>
       </v-col>
-      <v-col cols="4"></v-col>
+      <v-col cols="4" sm="8" md="3"></v-col>
       <!-- end of title -->
 
       <v-col cols="12" sm="4" md="4">

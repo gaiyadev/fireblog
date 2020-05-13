@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
     <v-row class="text-center">
-      <v-col cols="3"></v-col>
-      <v-col cols="12" sm="12" md="6">
+      <v-col cols="3" sm="2" md="3"></v-col>
+      <v-col cols="12" sm="8" md="6">
         <!-- <v-card v-if="error" elevation="11">
           <alert @dismissed="onDismissed" :text="error.message"></alert>
         </v-card>-->
@@ -57,7 +57,7 @@
           </v-form>
         </v-card>
       </v-col>
-      <v-col cols="3"></v-col>
+      <v-col cols="3" sm="2" md="3"></v-col>
     </v-row>
   </v-container>
 </template>

@@ -55,7 +55,18 @@
       <v-row justify="center" no-gutters>
         <v-col class="purple darken-4 py-4 text-center white--text" cols="12">
           {{ new Date().getFullYear() }} —
-          <strong>VueJS FireBlog</strong>
+          <strong>
+            FireBlog
+            <span class="white--text">
+              Designed With
+              <v-icon color="white">favorite</v-icon>&nbsp; By
+              <a
+                class="white--text"
+                target="_blank"
+                href="https://gaiyaobed.com.ng"
+              >Gaiya M. Obed</a>
+            </span>
+          </strong>
         </v-col>
       </v-row>
     </v-footer>
