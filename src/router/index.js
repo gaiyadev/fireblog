@@ -62,6 +62,14 @@ const routes = [
         meta: { transition: 'zoom' }
 
       },
+      {
+        path: "/category",
+        name: "Category",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../views/dashboard/Category"),
+        meta: { transition: 'zoom' }
+
+      },
 
     ],
   },

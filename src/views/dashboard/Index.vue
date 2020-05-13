@@ -76,6 +76,11 @@ export default {
         link: "/view_post"
       },
       {
+        title: "Add Category",
+        icon: "add",
+        link: "/category"
+      },
+      {
         title: "Profile",
         icon: "account_circle",
         link: "/profile"

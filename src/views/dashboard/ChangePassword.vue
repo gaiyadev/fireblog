@@ -1,5 +1,13 @@
 <template>
-  <v-container fluid>
-    <h4>Chnagepasswod </h4>
-  </v-container>
+  <div>
+    <ChangePassword></ChangePassword>
+  </div>
 </template>
+<script>
+import ChangePassword from "@/components/dashboard/ChangePassword";
+export default {
+  components: {
+    ChangePassword
+  }
+};
+</script>

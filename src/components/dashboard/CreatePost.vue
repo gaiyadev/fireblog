@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
     <v-row class="text-center">
-      <v-col col="12" sm="12" md="2"></v-col>
-      <v-col cols="12" sm="12" md="8">
+      <v-col col="12" md></v-col>
+      <v-col cols="12" md="8" sm="12">
         <!-- <v-card v-if="error" elevation="11">
           <alert @dismissed="onDismissed" :text="error.message"></alert>
         </v-card>-->
@@ -17,43 +17,66 @@
             lazy-validation
           >
             <v-text-field
-              v-model="email"
+              v-model="post"
               color="purple"
               outlined
-              shaped
-              append-icon="mail_outline"
+              append-icon="subject"
               error-count="2"
-              :rules="emailRules"
-              label="E-mail"
+              :rules="titleRules"
+              :counter="10000"
+              label="Post Title"
               required
             ></v-text-field>
-            <v-text-field
-              v-model="password"
-              color="purple"
-              :rules="passwordRules"
-              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="show1 = !show1"
-              outlined
-              shaped
-              :type="show1 ? 'text' : 'password'"
-              label="Password"
-              error-count="4"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="confirmPassword"
+            <v-select
+              :items="items"
+              label="Category"
               error-count="2"
-              :rules="confirmPasswordRules "
-              :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="show2 = !show2"
-              :type="show2 ? 'text' : 'password'"
-              color="purple"
+              append-icon="keyboard_arrow_down"
               outlined
-              shaped
-              label="Confirm Password"
+              color="purple"
+              :rules="menuRules"
               required
-            ></v-text-field>
+            ></v-select>
 
+            <v-menu
+              ref="menu"
+              v-model="menu"
+              :close-on-content-click="false"
+              :return-value.sync="date"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="date"
+                  label="Date"
+                  color="purple"
+                  append-icon="event"
+                  outlined
+                  v-on="on"
+                  :rules="DateRules"
+                  required
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="date" no-title scrollable>
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+                <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+              </v-date-picker>
+            </v-menu>
+
+            <v-textarea
+              append-icon="comment"
+              v-model="description"
+              outlined
+              color="purple"
+              error-count="5"
+              :counter="100000"
+              :rules="descriptionRules"
+              label="Content"
+              required
+            ></v-textarea>
             <v-btn
               shaped
               block
@@ -64,7 +87,7 @@
               class="mr-4"
               @click="validate"
             >
-              <span class="white--text">Sign up</span>
+              <span class="white--text">Create Post</span>
               <span style="display: none" class="custom-loader">
                 <v-icon light>cached</v-icon>
               </span>
@@ -72,7 +95,7 @@
           </v-form>
         </v-card>
       </v-col>
-      <v-col cols="12" sm="12" md="2"></v-col>
+      <v-col cols="12" md></v-col>
     </v-row>
   </v-container>
 </template>
@@ -82,30 +105,25 @@ export default {
   data() {
     return {
       title: "Create Post",
+      date: new Date().toISOString().substr(0, 10),
+      menu: false,
+      modal: false,
+      menu2: false,
       valid: true,
       show1: false,
       show2: false,
-      email: "",
-      emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      post: "",
+      items: ["Foo", "Bar", "Fizz", "Buzz"],
+      titleRules: [
+        v => !!v || "Title is required",
+        v => (v && v.length >= 4) || "Title must be less than 10 characters"
       ],
-      password: "",
-      passwordRules: [
-        v => !!v || "Password is required",
-        v => (v && v.length >= 8) || "Password must be less than 8 characters",
-        v => /(?=.*[A-Z])/.test(v) || "Must have one uppercase character",
-        v => /(?=.*\d)/.test(v) || "Must have one number"
-        // v => /([!@$%<>*''])/.test(v) || "Must have one special character [!@#$%]"
-      ],
-      confirmPassword: "",
-      confirmPasswordRules: [
-        v => !!v || "Confirm Password is required",
-        v =>
-          (v && v.length >= 8) ||
-          "Confirm Password must be less than 8 characters",
-        v => !!v || "Confirm password",
-        v => v === this.password || "Passwords do not match"
+      menuRules: [v => !!v || "Category is required"],
+      DateRules: [v => !!v || "Date is required"],
+      description: "",
+      descriptionRules: [
+        v => !!v || "Content is required",
+        v => (v && v.length > 50) || "Content must be less than 100 characters"
       ]
     };
   },
