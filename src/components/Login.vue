@@ -7,7 +7,7 @@
           <alert @dismissed="onDismissed" :text="error.message"></alert>
         </v-card>-->
         <v-card elevation="11" class="pt-10">
-          <h2 class="primary--text">{{ title }}</h2>
+          <h2 class="purple--text">{{ title }}</h2>
           <v-form
             @submit.prevent="onLogin"
             ref="form"
@@ -19,6 +19,7 @@
               v-model="email"
               append-icon="mail_outline"
               outlined
+              color="purple"
               error-count="2"
               shaped
               :rules="emailRules"
@@ -27,6 +28,7 @@
             ></v-text-field>
             <v-text-field
               v-model="password"
+              color="purple"
               :rules="passwordRules"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="show1 = !show1"
@@ -42,11 +44,11 @@
               type="submit"
               block
               :disabled="!valid"
-              color="primary"
-              class="mr-4"
+              color="purple darken-4"
+              class="mr-4 text"
               @click="validate"
             >
-              Login
+              <span class="white--text">Login</span>
               <span style="display: none" class="custom-loader">
                 <v-icon light>cached</v-icon>
               </span>

@@ -7,7 +7,7 @@
           <alert @dismissed="onDismissed" :text="error.message"></alert>
         </v-card>-->
         <v-card elevation="11" class="pt-10">
-          <h2 class="primary--text">{{ title }}</h2>
+          <h2 class="purple--text">{{ title }}</h2>
           <v-form
             @submit.prevent="onSignup"
             ref="form"
@@ -17,6 +17,7 @@
           >
             <v-text-field
               v-model="email"
+              color="purple"
               outlined
               shaped
               append-icon="mail_outline"
@@ -27,6 +28,7 @@
             ></v-text-field>
             <v-text-field
               v-model="password"
+              color="purple"
               :rules="passwordRules"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="show1 = !show1"
@@ -44,6 +46,7 @@
               :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="show2 = !show2"
               :type="show2 ? 'text' : 'password'"
+              color="purple"
               outlined
               shaped
               label="Confirm Password"
@@ -56,11 +59,11 @@
               x-large
               type="submit"
               :disabled="!valid"
-              color="primary"
+              color="purple darken-4"
               class="mr-4"
               @click="validate"
             >
-              Sign up
+              <span class="white--text">Sign up</span>
               <span style="display: none" class="custom-loader">
                 <v-icon light>cached</v-icon>
               </span>

@@ -1,27 +1,27 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" absolute temporary elevation="9">
+    <v-navigation-drawer color="purple darken-4" v-model="drawer" absolute temporary elevation="9">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="white--text text-uppercase">FireBlog</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
-      <v-divider></v-divider>
+      <v-divider color="white"></v-divider>
 
       <v-list dense>
         <v-list-item v-for="item in menuItems" :key="item.title" link router :to="item.href">
           <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon color="white">{{ item.icon }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title class="white--text">{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app color="primary" dark elevation="9">
+    <v-app-bar app color="purple darken-4" dark elevation="9">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="hidden-md-and-up"></v-app-bar-nav-icon>
 
       <div class="d-flex align-center">
@@ -49,10 +49,10 @@
         <router-view></router-view>
       </vue-page-transition>
     </v-content>
-    <v-footer color="primary" padless>
+    <v-footer color="purple darken-3" padless>
       <v-row justify="center" no-gutters>
         <v-btn v-for="link in links" :key="link" color="white" text rounded class="my-2">{{ link }}</v-btn>
-        <v-col class="primary lighten-1 py-4 text-center white--text" cols="12">
+        <v-col class="purple darken-4 py-4 text-center white--text" cols="12">
           {{ new Date().getFullYear() }} —
           <strong>VueJS FireBlog</strong>
         </v-col>
@@ -70,6 +70,11 @@ export default {
     drawer: false,
     links: ["Proudly powered by Vuetify + firebase"],
     menuItems: [
+      {
+        title: "Home",
+        icon: "home",
+        href: "/"
+      },
       {
         title: "Login",
         icon: "perm_identity",
