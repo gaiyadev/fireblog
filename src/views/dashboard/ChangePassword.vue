@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-n12">
     <ChangePassword></ChangePassword>
   </div>
 </template>

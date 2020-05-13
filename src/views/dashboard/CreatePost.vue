@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-n12">
     <CreatePost></CreatePost>
   </div>
 </template>

@@ -1,5 +1,16 @@
 <template>
-  <v-container fluid>
-    <h4>Creat post</h4>
-  </v-container>
+  <div class="mt-n12">
+    <ViewPost></ViewPost>
+  </div>
 </template>
+<script>
+import ViewPost from "@/components/dashboard/ViewPost";
+export default {
+  components: {
+    ViewPost
+  },
+  data() {
+    return {};
+  }
+};
+</script>

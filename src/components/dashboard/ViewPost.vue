@@ -3,7 +3,6 @@
     <v-row class="text-center">
       <v-col cols="3" sm="2" md="3"></v-col>
       <v-col cols="12" sm="8" md="6">
-        <CategoryDialog></CategoryDialog>
         <v-card elevation="7">
           <v-card-title>
             Nutrition
@@ -31,14 +30,9 @@
 </template>
 
 <script>
-import CategoryDialog from "@/components/dashboard/CategoryDialog";
 export default {
-  components: {
-    CategoryDialog
-  },
   data() {
     return {
-      title: "Category",
       search: "",
       headers: [
         {
@@ -47,14 +41,14 @@ export default {
           sortable: false,
           value: "name"
         },
-        // { text: "Post", value: "post" },
+        { text: "Post", value: "post" },
         { text: "Category", value: "category" },
         { text: "Time ", value: "time" }
       ],
       desserts: [
         {
           name: "1",
-        //   post: "a web dev",
+          post: "a web dev",
           category: "web dev",
           time: "6pm"
         },
