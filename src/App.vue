@@ -90,6 +90,22 @@
           </strong>
         </v-col>
       </v-row>
+      <v-fab-transition>
+        <v-btn
+          v-scroll="onScroll"
+          v-show="fab"
+          fab
+          dark
+          fixed
+          x-large
+          bottom
+          right
+          color="purple darken-4"
+          @click="toTop"
+        >
+          <v-icon>keyboard_arrow_up</v-icon>
+        </v-btn>
+      </v-fab-transition>
     </v-footer>
   </v-app>
 </template>
@@ -101,6 +117,7 @@ export default {
 
   data: () => ({
     drawer: false,
+    fab: false,
     links: ["Proudly powered by Vuetify + firebase"]
   }),
   computed: {
@@ -139,6 +156,14 @@ export default {
       this.$store.dispatch("logoutUser");
       this.$router.push("/login");
       this.$toast.success("Logout successfully");
+    },
+    onScroll(e) {
+      if (typeof window === "undefined") return;
+      const top = window.pageYOffset || e.target.scrollTop || 0;
+      this.fab = top > 20;
+    },
+    toTop() {
+      this.$vuetify.goTo(0);
     }
   }
 };
