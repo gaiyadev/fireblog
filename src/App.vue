@@ -137,7 +137,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logoutUser");
-      this.$router.push("/");
+      this.$router.push("/login");
       this.$toast.success("Logout successfully");
     }
   }

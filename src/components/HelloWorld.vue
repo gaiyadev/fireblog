@@ -38,7 +38,14 @@
       <v-col cols="4" sm="8" md="3"></v-col>
       <!-- end of title -->
 
-      <v-col cols="12" sm="12" md="4" v-for="post in smallColumnPost" :key="post.id">
+      <v-col
+        cols="12"
+        sm="12"
+        md="4"
+        v-for="post in smallColumnPost"
+        :key="post.id"
+        class="animate__animated animate__backInDown"
+      >
         <v-img :src="post.imageURL" height="300">
           <v-row align="end" wrap class="lightbox white--text pa-2 fill-height">
             <v-col>
