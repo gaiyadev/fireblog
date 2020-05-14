@@ -3,9 +3,9 @@
     <v-row class="text-center">
       <v-col cols="3" sm="2" md="3"></v-col>
       <v-col cols="12" sm="8" md="6">
-        <!-- <v-card v-if="error" elevation="11">
+        <v-card v-if="error" elevation="11">
           <alert @dismissed="onDismissed" :text="error.message"></alert>
-        </v-card>-->
+        </v-card>
         <v-card elevation="11" class="pt-10">
           <h2 class="purple--text text-uppercase">{{ title }}</h2>
           <v-divider color="purple" class="mt-2"></v-divider>
@@ -60,12 +60,13 @@
               x-large
               type="submit"
               :disabled="!valid"
+              :loading="loading"
               color="purple darken-4"
               class="mr-4"
               @click="validate"
             >
               <span class="white--text">Sign up</span>
-              <span style="display: none" class="custom-loader">
+              <span style="display: none;" class="custom-loader">
                 <v-icon light>cached</v-icon>
               </span>
             </v-btn>
@@ -109,14 +110,53 @@ export default {
       ]
     };
   },
+  computed: {
+    error() {
+      return this.$store.getters.error;
+    },
+    loading() {
+      return this.$store.getters.loading;
+    },
+    user() {
+      return this.$store.getters.user;
+    }
+  },
+  watch: {
+    user(value) {
+      if (value !== null && value !== undefined) {
+        this.$toast.success("Account created succesfully");
 
+        this.$router.push("/login");
+      }
+    }
+  },
   methods: {
     validate() {
       this.$refs.form.validate();
     },
     onSignup() {
-      console.log("register");
+      this.$store
+        .dispatch("signUpUsers", {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          //this.$toast.success("Account created succesfully");
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    onDismissed() {
+      this.$store.dispatch("clearError");
+    },
+    hideErrors() {
+      this.$store.dispatch("clearError");
+      console.log("remove errors");
     }
+  },
+  mounted() {
+    setTimeout(this.hideErrors, 200);
   }
 };
 </script>

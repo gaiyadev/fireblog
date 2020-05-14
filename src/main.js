@@ -6,10 +6,22 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import * as firebase from "firebase";
 import VuePageTransition from 'vue-page-transition';
+import alertComp from "./components/Alert.vue";
+import "vue-toastification/dist/index.css";
+import Toast from "vue-toastification";
 
 
 Vue.config.productionTip = false;
 Vue.use(VuePageTransition);
+Vue.component("alert", alertComp);
+Vue.use(Toast, options);
+
+const options = {
+  // You can set your default options here
+  timeout: 3500,
+  draggable: true,
+  closeOnClick: false
+};
 
 let firebaseConfig = {
   apiKey: "AIzaSyDGCtobydCVNFazi7A4jYjqWmXopPp-a4w",
@@ -28,5 +40,10 @@ new Vue({
   created() {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch("autoLoginUser", user);
+      }
+    });
   }
 }).$mount("#app");

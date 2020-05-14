@@ -1,5 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import * as firebase from "firebase";
+
 
 Vue.use(Vuex);
 
@@ -54,7 +56,7 @@ export default new Vuex.Store({
     createPost(state, payload) {
       state.loadedBlogPosts.push(payload);
     },
-    setError(state, payload) {
+    isError(state, payload) {
       state.error = payload;
     },
     isLoading(state, payload) {
@@ -63,6 +65,9 @@ export default new Vuex.Store({
     clearError(state, payload) {
       state.error = payload;
     },
+    setUser(state, payload) {
+      state.user = payload;
+    }
   },
   actions: {
     createPost({ commit }, payload) {
@@ -77,6 +82,49 @@ export default new Vuex.Store({
       }
       //Store in firebase
       commit("createPost", post);
+    },
+    signUpUsers({ commit }, payload) {
+      commit("isLoading", true);
+      commit("clearError");
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then(user => {
+        commit("isLoading", false);
+        const newUser = {
+          id: user.user.uid
+        };
+        commit("setUser", newUser);
+      }).catch(error => {
+        commit("isLoading", false);
+        commit("isError", error);
+        console.log(error);
+      });
+    },
+    signInUser({ commit }, payload) {
+      commit("isLoading", true);
+      commit("clearError");
+      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then(user => {
+        commit("isLoading", false);
+        const newUser = {
+          id: user.user.uid
+        };
+        commit("setUser", newUser);
+      }).catch(error => {
+        commit("isLoading", false);
+        commit("isError", error);
+        console.log(error);
+      });
+    },
+    autoLoginUser({ commit }, payload) {
+      commit("setUser", {
+        id: payload.uid
+      });
+    },
+    logoutUser({ commit }) {
+      firebase.auth().signOut().then(() => {
+        commit("setUser", null);
+      }).catch(error => console.log(error));
+    },
+    clearError({ commit }) {
+      commit("clearError");
     }
   },
   modules: {},
@@ -97,6 +145,15 @@ export default new Vuex.Store({
           return post.id === postId;
         });
       };
-    }
+    },
+    user(state) {
+      return state.user;
+    },
+    error(state) {
+      return state.error;
+    },
+    loading(state) {
+      return state.loading;
+    },
   }
 });
