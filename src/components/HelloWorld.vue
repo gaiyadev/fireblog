@@ -3,11 +3,18 @@
     <v-row wrap class="mt-n7 ml-n10 mr-n11">
       <v-col cols="12" sm="12" md="12">
         <v-card elevation="7">
-          <v-carousel cycle height="500" hide-delimiter-background show-arrows-on-hover>
+          <v-carousel
+            cycle
+            height="500"
+            hide-delimiter-background
+            show-arrows-on-hover
+            style="cursor: pointer;"
+          >
             <v-carousel-item
               v-for="item in slideItems"
               :key="item.id"
-              :src="item.src"
+              @click="OnLoadPost(item.id)"
+              :src="item.imageURL"
               reverse-transition="fade-transition"
               transition="fade-transition"
             >
@@ -31,23 +38,26 @@
       <v-col cols="4" sm="8" md="3"></v-col>
       <!-- end of title -->
 
-      <v-col cols="12" sm="4" md="4">
-        <v-img src="https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg" height="300">
-          <v-row align="end" class="lightbox white--text pa-2 fill-height">
+      <v-col cols="12" sm="12" md="4" v-for="post in smallColumnPost" :key="post.id">
+        <v-img :src="post.imageURL" height="300">
+          <v-row align="end" wrap class="lightbox white--text pa-2 fill-height">
             <v-col>
-              <div class="subheading float-left">Digital Marketting Lee</div>
-              <div class="body-1">heyfromjonathan@gmail.com</div>
+              <div class="subheading float-left">
+                {{ post.title }}
+                <br />
+                <span>{{post.date}}</span>
+                <br />
+              </div>
+              <br />
+              <br />
+              <div class="body-1">{{ post.content }}</div>
+              <v-btn :to="'/readPost/' + post.id" class="white--text" color="purple darken-4">
+                Read More
+                <v-icon>arrow_forward</v-icon>
+              </v-btn>
             </v-col>
           </v-row>
         </v-img>
-      </v-col>
-
-      <v-col cols="12" sm="4" md="4">
-        <v-img src="https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg" height="300"></v-img>
-      </v-col>
-
-      <v-col cols="12" sm="4" md="4">
-        <v-img src="https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg" height="300"></v-img>
       </v-col>
     </v-row>
   </v-container>
@@ -57,42 +67,21 @@
 export default {
   data() {
     return {
-      latest: "Latest blog Post",
-      slideItems: [
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-          id: "adfadsgmkjl,k",
-          title: "Web Development",
-          time: "6:58pm",
-          location: "Kaduna",
-          date: "2019-05-06"
-        },
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
-          id: "fjgfjgfjfgjjgmn ",
-          title: "Graphics design",
-          time: "6:58pm",
-          location: "Kaduna",
-          date: "2019-05-06"
-        },
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
-          id: "gtrgtrgrtrththt",
-          title: "Digital marketing",
-          time: "6:58pm",
-          location: "Kaduna",
-          date: "2019-05-06"
-        },
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
-          id: "bhdghgjgjhjhjh",
-          title: "Mobile App dev",
-          time: "6:58pm",
-          location: "Kaduna",
-          date: "2019-05-06"
-        }
-      ]
+      latest: "Latest blog Post"
     };
+  },
+  computed: {
+    slideItems() {
+      return this.$store.getters.getLoadedBlogPosts;
+    },
+    smallColumnPost() {
+      return this.$store.getters.getFeatureBlogPost;
+    }
+  },
+  methods: {
+    OnLoadPost(id) {
+      this.$router.push("/readPost/" + id);
+    }
   }
 };
 </script>

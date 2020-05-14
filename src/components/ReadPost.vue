@@ -5,7 +5,7 @@
         <h2>Read post</h2>
       </v-col>-->
       <v-col cols="12" md="10" sm="12">
-        <h2 class="mb-3 purple--text text-uppercase" color="purple--text">Read post</h2>
+        <h2 class="mb-3 purple--text text-uppercase" color="purple--text">post</h2>
         <v-img
           src="https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
           elevation="4"
@@ -95,29 +95,42 @@
 
 <script>
 export default {
-  data: () => ({
-    item: 1,
-    valid: true,
-    items: [
-      { text: "Real-Time", icon: "mdi-clock" },
-      { text: "Audience", icon: "mdi-account" },
-      { text: "Conversions", icon: "mdi-flag" }
-    ],
-    name: "",
-    nameRules: [
-      v => !!v || "Name is required",
-      v => (v && v.length >= 4) || "Name must be less than 4 characters"
-    ],
-    comment: "",
-    commentRules: [
-      v => !!v || "Comment is required",
-      v => (v && v.length >= 4) || "Comment must be less than 4 characters"
-    ]
-  }),
+  props: ["id"],
+  data() {
+    return {
+      item: 1,
+      valid: true,
+      items: [
+        { text: "Real-Time", icon: "mdi-clock" },
+        { text: "Audience", icon: "mdi-account" },
+        { text: "Conversions", icon: "mdi-flag" }
+      ],
+      name: "",
+      nameRules: [
+        v => !!v || "Name is required",
+        v => (v && v.length >= 4) || "Name must be less than 4 characters"
+      ],
+      comment: "",
+      commentRules: [
+        v => !!v || "Comment is required",
+        v => (v && v.length >= 4) || "Comment must be less than 4 characters"
+      ]
+    };
+  },
+  computed: {
+    blogPost() {
+      return this.$store.getters.getLoadedBlogPost(this.id);
+    }
+  },
   methods: {
     validate() {
       this.$refs.form.validate();
     }
+  },
+
+  mounted() {
+    console.log(this.blogPost);
+    console.log(this.$router.id);
   }
 };
 </script>

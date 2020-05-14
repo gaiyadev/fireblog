@@ -8,28 +8,31 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    meta: { transition: "zoom" }
+
   },
   {
     path: "/register",
     name: "Register",
     component: () =>
       import("../views/Register.vue"),
-    meta: { transition: 'zoom' }
+    meta: { transition: "zoom" }
   },
   {
     path: "/login",
     name: "Login",
     component: () =>
       import("../views/Login.vue"),
-    meta: { transition: 'zoom' }
+    meta: { transition: "zoom" }
   },
   {
-    path: "/readPost",
+    path: "/readPost/:id",
     name: "ReadPost",
     component: () =>
       import("../views/ReadPost.vue"),
-    meta: { transition: 'zoom' }
+    props: true,
+    meta: { transition: "zoom" }
   },
   // Dashboard Routes
   {
@@ -43,7 +46,7 @@ const routes = [
         name: "Profile",
         component: () =>
           import("../views/dashboard/Profile"),
-        meta: { transition: 'zoom' }
+        meta: { transition: "zoom" }
 
       },
       {
@@ -51,7 +54,7 @@ const routes = [
         name: "ChangePassword",
         component: () =>
           import("../views/dashboard/ChangePassword"),
-        meta: { transition: 'zoom' }
+        meta: { transition: "zoom" }
 
       },
       {
@@ -59,7 +62,7 @@ const routes = [
         name: "CreatePost",
         component: () =>
           import("../views/dashboard/CreatePost"),
-        meta: { transition: 'zoom' }
+        meta: { transition: "zoom" }
 
       },
       {
@@ -67,7 +70,7 @@ const routes = [
         name: "ViewPost",
         component: () =>
           import("../views/dashboard/ViewPost"),
-        meta: { transition: 'zoom' }
+        meta: { transition: "zoom" }
 
       },
       {
@@ -75,13 +78,15 @@ const routes = [
         name: "Category",
         component: () =>
           import("../views/dashboard/Category"),
-        meta: { transition: 'zoom' }
+        meta: { transition: "zoom" }
 
       },
       {
         path: "",
         component: () =>
-          import("../views/dashboard/CreatePost")
+          import("../views/dashboard/CreatePost"),
+        meta: { transition: "zoom" }
+
       },
 
     ],
