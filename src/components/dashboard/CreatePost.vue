@@ -40,7 +40,7 @@
 
             <v-menu
               ref="menu"
-              v-model="menu"
+              v-model="category"
               :close-on-content-click="false"
               :return-value.sync="date"
               transition="scale-transition"
@@ -82,7 +82,7 @@
               accept="image/*"
               @change="onFilePicked"
             />
-            <img :src="imageURL" class="avatar" alt="" height="200" />
+            <img :src="imageURL" class="avatar" alt height="200" />
             <br />
             <v-textarea
               append-icon="comment"
@@ -124,7 +124,7 @@ export default {
     return {
       title: "Create Post",
       date: new Date().toISOString().substr(0, 10),
-      menu: false,
+      category: false,
       modal: false,
       menu2: false,
       valid: true,

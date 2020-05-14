@@ -45,10 +45,40 @@ export default new Vuex.Store({
     ],
     user: {
       id: "ghthjhyjyhjyj"
+    },
+    loading: false,
+    error: null,
+    postCreated: []
+  },
+  mutations: {
+    createPost(state, payload) {
+      state.loadedBlogPosts.push(payload);
+    },
+    setError(state, payload) {
+      state.error = payload;
+    },
+    isLoading(state, payload) {
+      state.loading = payload;
+    },
+    clearError(state, payload) {
+      state.error = payload;
+    },
+  },
+  actions: {
+    createPost({ commit }, payload) {
+      commit("isLoading", true);
+      commit("clearError");
+      const post = {
+        title: payload.post,
+        category: payload.category,
+        description: payload.description,
+        date: payload.date,
+        imageURL: payload.imageURL,
+      }
+      //Store in firebase
+      commit("createPost", post);
     }
   },
-  mutations: {},
-  actions: {},
   modules: {},
   getters: {
     getLoadedBlogPosts(state) {
