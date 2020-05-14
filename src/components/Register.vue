@@ -124,7 +124,7 @@ export default {
       if (value !== null && value !== undefined) {
         this.$toast.success("Account created succesfully");
 
-        this.$router.push("/login");
+        this.$router.push("/dashboard");
       }
     }
   },

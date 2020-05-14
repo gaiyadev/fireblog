@@ -46,10 +46,10 @@
         :key="post.id"
         class="animate__animated animate__backInDown"
       >
-        <v-img :src="post.imageURL" height="300">
+        <v-img :src="post.imageURL" height="300" elevation="5" class="mb-4">
           <v-row align="end" wrap class="lightbox white--text pa-2 fill-height">
             <v-col>
-              <div class="subheading float-left">
+              <!-- <div class="subheading float-left">
                 {{ post.title }}
                 <br />
                 <span>{{post.date}}</span>
@@ -61,10 +61,24 @@
               <v-btn :to="'/readPost/' + post.id" class="white--text" color="purple darken-4">
                 Read More
                 <v-icon>arrow_forward</v-icon>
-              </v-btn>
+              </v-btn>-->
             </v-col>
           </v-row>
         </v-img>
+
+        <div class="subheading purple--text text-uppercase float-left">
+          {{ post.title }}
+          <br />
+          <span class="primary--text">{{post.date}}</span>
+          <br />
+        </div>
+        <br />
+        <br />
+        <div class="body-1">{{ post.content }}</div>
+        <v-btn :to="'/readPost/' + post.id" class="white--text" color="purple darken-4">
+          Read More
+          <v-icon>arrow_forward</v-icon>
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>

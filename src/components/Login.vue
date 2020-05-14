@@ -103,6 +103,7 @@ export default {
       this.$refs.form.validate();
     },
     onLogin() {
+      this.$Progress.start();
       this.$store.dispatch("signInUser", {
         email: this.email,
         password: this.password

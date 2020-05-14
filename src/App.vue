@@ -70,6 +70,7 @@
         <vue-page-transition name="fade-in-right">
           <router-view></router-view>
         </vue-page-transition>
+        <vue-progress-bar></vue-progress-bar>
       </v-container>
     </v-content>
     <v-footer color="purple darken-3" padless>
@@ -104,7 +105,7 @@
           @click="toTop"
         >
           <v-icon>keyboard_arrow_up</v-icon>
-        </v-btn>
+        </v-btn>h
       </v-fab-transition>
     </v-footer>
   </v-app>

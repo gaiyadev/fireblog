@@ -11,6 +11,8 @@ import "vue-toastification/dist/index.css";
 import Toast from "vue-toastification";
 import animateCss from "animate.css";
 import wowJs from "wowjs";
+import VueProgressBar from 'vue-progressbar';
+
 
 
 Vue.config.productionTip = false;
@@ -20,7 +22,21 @@ Vue.use(Toast, options);
 Vue.use(animateCss);
 Vue.use(wowJs);
 
-//new WOW().init();
+const baroptions = {
+  color: '#bffaf3',
+  failedColor: '#874b4b',
+  thickness: '5px',
+  transition: {
+    speed: '0.2s',
+    opacity: '0.6s',
+    termination: 300
+  },
+  autoRevert: true,
+  location: 'left',
+  inverse: false
+}
+
+Vue.use(VueProgressBar, baroptions);
 
 const options = {
   // You can set your default options here
