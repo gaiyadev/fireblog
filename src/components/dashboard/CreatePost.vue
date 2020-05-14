@@ -66,6 +66,24 @@
               </v-date-picker>
             </v-menu>
 
+            <v-btn
+              color="purple darken-4"
+              class="white--text ml-n12 mb-4 mr-3"
+              fab
+              x-large
+              @click="pickFile"
+            >
+              <v-icon dark>mdi-cloud-upload</v-icon>
+            </v-btn>
+            <input
+              type="file"
+              style="display:  none;"
+              ref="fileInput"
+              accept="image/*"
+              @change="onFilePicked"
+            />
+            <img :src="imageURL" class="avatar" alt="" height="200" />
+            <br />
             <v-textarea
               append-icon="comment"
               v-model="description"
@@ -112,6 +130,7 @@ export default {
       valid: true,
       show1: false,
       show2: false,
+      image: null,
       post: "",
       items: ["Foo", "Bar", "Fizz", "Buzz"],
       titleRules: [
@@ -124,6 +143,14 @@ export default {
       descriptionRules: [
         v => !!v || "Content is required",
         v => (v && v.length > 50) || "Content must be less than 100 characters"
+      ],
+      imageURL: [],
+      imageRules: [
+        v => !!v || "Image is required",
+        v =>
+          !v ||
+          (v && v.size < 2000000) ||
+          "Image size should be less than 2 MB!"
       ]
     };
   },
@@ -134,6 +161,22 @@ export default {
     },
     onSignup() {
       console.log("register");
+    },
+    pickFile() {
+      this.$refs.fileInput.click();
+    },
+    onFilePicked(event) {
+      const files = event.target.files;
+      let filename = files[0].name;
+      if (filename.lastIndexOf(".") <= 0) {
+        return alert("please add a valid image");
+      }
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", () => {
+        this.imageURL = fileReader.result;
+      });
+      fileReader.readAsDataURL(files[0]);
+      this.image = files[0];
     }
   }
 };
@@ -175,5 +218,11 @@ export default {
   to {
     transform: rotate(360deg);
   }
+}
+.avatar {
+  vertical-align: middle;
+  width: 200px;
+  /* height: 50px; */
+  border-radius: 50%;
 }
 </style>
