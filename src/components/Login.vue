@@ -7,7 +7,7 @@
           <alert @dismissed="onDismissed" :text="error.message"></alert>
         </v-card>
         <v-card elevation="11" class="pt-10">
-          <h2 class="purple--text text-uppercase">{{ title }}</h2>
+          <h2 class="purple--text text-uppercase animate__animated animate__flash">{{ title }}</h2>
           <v-divider color="purple" class="mt-2"></v-divider>
           <v-form
             @submit.prevent="onLogin"
@@ -48,7 +48,7 @@
               class="mr-4 text"
               @click="validate"
             >
-              <span class="white--text">Login</span>
+              <span class="white--text animate__animated animate__backInLeft">Login</span>
               <span style="display: none" class="custom-loader">
                 <v-icon light>cached</v-icon>
               </span>

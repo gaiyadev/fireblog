@@ -4,7 +4,11 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="white--text text-uppercase">
-            <router-link to="/" class="white--text" style="text-decoration: none;">FireBlog</router-link>
+            <router-link
+              to="/"
+              class="white--text animate__animated animate__flash"
+              style="text-decoration: none;"
+            >FireBlog</router-link>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -33,7 +37,12 @@
 
       <div class="d-flex align-center">
         <h2>
-          <router-link style="text-decoration:none;" class="white--text" id="log" to="/">FireBlog</router-link>
+          <router-link
+            style="text-decoration:none;"
+            class="white--text animate__animated animate__flash"
+            id="log"
+            to="/"
+          >FireBlog</router-link>
         </h2>
       </div>
       <v-spacer></v-spacer>
@@ -128,7 +137,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logoutUser");
-      this.$router.push("/login");
+      this.$router.push("/");
       this.$toast.success("Logout successfully");
     }
   }

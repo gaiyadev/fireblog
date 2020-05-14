@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "animate.css": "^4.1.0",
     "core-js": "^3.6.4",
     "firebase": "^7.14.3",
     "moment": "^2.25.3",

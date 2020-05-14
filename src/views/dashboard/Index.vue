@@ -1,6 +1,14 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer color="purple darken-4" clipped elevation="6" v-model="drawer" app>
+    <v-navigation-drawer
+      expand-on-hover
+      :mini-variant.sync="mini"
+      color="purple darken-4"
+      clipped
+      elevation="6"
+      v-model="drawer"
+      app
+    >
       <v-list dense>
         <v-list-item link>
           <v-list-item-action>
@@ -70,7 +78,8 @@ export default {
     source: String
   },
   data: () => ({
-    drawer: false,
+    drawer: null,
+    mini: true,
     items: [
       {
         title: "Home",
@@ -115,7 +124,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logoutUser");
-      this.$router.push("/login");
+      this.$router.push("/");
       this.$toast.success("Logout successfully");
     }
   }

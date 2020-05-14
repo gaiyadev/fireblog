@@ -9,12 +9,14 @@ import VuePageTransition from 'vue-page-transition';
 import alertComp from "./components/Alert.vue";
 import "vue-toastification/dist/index.css";
 import Toast from "vue-toastification";
+import animateCss from "animate.css"
 
 
 Vue.config.productionTip = false;
 Vue.use(VuePageTransition);
 Vue.component("alert", alertComp);
 Vue.use(Toast, options);
+Vue.use(animateCss);
 
 const options = {
   // You can set your default options here
