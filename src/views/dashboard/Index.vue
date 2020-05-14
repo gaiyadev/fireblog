@@ -70,8 +70,13 @@ export default {
     source: String
   },
   data: () => ({
-    drawer: null,
+    drawer: false,
     items: [
+      {
+        title: "Home",
+        icon: "home",
+        link: "/"
+      },
       {
         title: "Create Post",
         icon: "create",

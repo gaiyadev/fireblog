@@ -22,7 +22,6 @@
               outlined
               color="purple"
               error-count="2"
-              shaped
               :rules="emailRules"
               label="E-mail"
               required
@@ -36,7 +35,6 @@
               :type="show1 ? 'text' : 'password'"
               label="Password"
               outlined
-              shaped
               required
             ></v-text-field>
 

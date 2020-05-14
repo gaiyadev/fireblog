@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import authGuard from "./auth-guard";
+
 
 Vue.use(VueRouter);
 
@@ -40,12 +42,14 @@ const routes = [
     name: "Dashboard",
     component: () =>
       import("../views/dashboard/Index"),
+    beforeEnter: authGuard,
     children: [
       {
         path: "/profile",
         name: "Profile",
         component: () =>
           import("../views/dashboard/Profile"),
+        beforeEnter: authGuard,
         meta: { transition: "zoom" }
 
       },
@@ -54,6 +58,7 @@ const routes = [
         name: "ChangePassword",
         component: () =>
           import("../views/dashboard/ChangePassword"),
+        beforeEnter: authGuard,
         meta: { transition: "zoom" }
 
       },
@@ -62,6 +67,7 @@ const routes = [
         name: "CreatePost",
         component: () =>
           import("../views/dashboard/CreatePost"),
+        beforeEnter: authGuard,
         meta: { transition: "zoom" }
 
       },
@@ -70,6 +76,7 @@ const routes = [
         name: "ViewPost",
         component: () =>
           import("../views/dashboard/ViewPost"),
+        beforeEnter: authGuard,
         meta: { transition: "zoom" }
 
       },
@@ -78,6 +85,7 @@ const routes = [
         name: "Category",
         component: () =>
           import("../views/dashboard/Category"),
+        beforeEnter: authGuard,
         meta: { transition: "zoom" }
 
       },
@@ -85,6 +93,7 @@ const routes = [
         path: "",
         component: () =>
           import("../views/dashboard/CreatePost"),
+        beforeEnter: authGuard,
         meta: { transition: "zoom" }
 
       },

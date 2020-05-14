@@ -34,7 +34,6 @@
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="show1 = !show1"
               outlined
-              shaped
               :type="show1 ? 'text' : 'password'"
               label="Password"
               error-count="4"
@@ -49,7 +48,6 @@
               :type="show2 ? 'text' : 'password'"
               color="purple"
               outlined
-              shaped
               label="Confirm Password"
               required
             ></v-text-field>
