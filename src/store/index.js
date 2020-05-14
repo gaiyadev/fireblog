@@ -58,7 +58,7 @@ export default new Vuex.Store({
     },
 
     getFeatureBlogPost(state, getters) {
-      return getters.getLoadedBlogPosts.slice(0, 3);
+      return getters.getLoadedBlogPosts.slice(1, 4);
     },
 
     getLoadedBlogPost(state) {

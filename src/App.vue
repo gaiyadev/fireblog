@@ -3,7 +3,9 @@
     <v-navigation-drawer color="purple darken-4" v-model="drawer" absolute temporary elevation="9">
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="white--text text-uppercase">FireBlog</v-list-item-title>
+          <v-list-item-title class="white--text text-uppercase">
+            <router-link to="/">FireBlog</router-link>
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 

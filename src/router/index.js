@@ -31,7 +31,7 @@ const routes = [
     name: "ReadPost",
     component: () =>
       import("../views/ReadPost.vue"),
-    props: true,
+    //props: true,
     meta: { transition: "zoom" }
   },
   // Dashboard Routes

@@ -5,21 +5,14 @@
         <h2>Read post</h2>
       </v-col>-->
       <v-col cols="12" md="10" sm="12">
-        <h2 class="mb-3 purple--text text-uppercase" color="purple--text">post</h2>
-        <v-img
-          src="https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
-          elevation="4"
-          class="ml-n6 mr-n12"
-        ></v-img>
+        <h2 class="mb-3 purple--text text-uppercase" color="purple--text">{{ blogPost.title }}</h2>
+        <v-img :src="blogPost.imageURL" elevation="4" class="ml-n6 mr-n12"></v-img>
         <h4 class="font-weight-black mt-4">
-          2022-04-17
+          {{ blogPost.date }}
           <span class="primary--text">Admin</span>
         </h4>
 
-        <p
-          style=" font-size: 18px;"
-          class="mt-4"
-        >Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore repudiandae delectus ipsum, modi amet harum provident nesciunt repellendus quas enim, expedita laborum dolores corporis aliquam placeat. Magni dolorum labore modi.</p>
+        <p style=" font-size: 18px;" class="mt-4">{{blogPost.content }}</p>
       </v-col>
       <v-col cols="12" md="2" sm="12">
         <v-card class="mx-auto mt-12 hidden-sm-and-down">
@@ -95,9 +88,10 @@
 
 <script>
 export default {
-  props: ["id"],
+  //props: ["id"],
   data() {
     return {
+      id: this.$route.params.id,
       item: 1,
       valid: true,
       items: [
@@ -129,8 +123,7 @@ export default {
   },
 
   mounted() {
-    console.log(this.blogPost);
-    console.log(this.$router.id);
+    //console.log(this.blogPost);
   }
 };
 </script>
