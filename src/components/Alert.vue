@@ -10,6 +10,13 @@ export default {
   methods: {
     omClose() {
       this.$emit("dismissed");
+    },
+    hideErrors() {
+      this.$store.dispatch("clearError");
+      console.log("remove errors");
+    },
+    mounted() {
+      setTimeout(this.hideErrors(), 200);
     }
   }
 };

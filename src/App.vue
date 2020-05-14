@@ -4,7 +4,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="white--text text-uppercase">
-            <router-link to="/">FireBlog</router-link>
+            <router-link to="/" class="white--text" style="text-decoration: none;">FireBlog</router-link>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -21,6 +21,11 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <v-btn text class="white--text" v-if="userIsAuthenticated" @click="logout">
+        <v-icon color="white">exit_to_app</v-icon>
+        <span class="ml-8">Logout</span>
+      </v-btn>
     </v-navigation-drawer>
 
     <v-app-bar app color="purple darken-4" dark elevation="9">
@@ -42,6 +47,11 @@
       >
         <span class="mr-2">{{ link.title }}</span>
         <v-icon>{{ link.icon }}</v-icon>
+      </v-btn>
+
+      <v-btn text class="hidden-xs-only" v-if="userIsAuthenticated" @click="logout">
+        <span class="mr-2">Logout</span>
+        <v-icon>exit_to_app</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -82,24 +92,45 @@ export default {
 
   data: () => ({
     drawer: false,
-    links: ["Proudly powered by Vuetify + firebase"],
-    menuItems: [
-      {
-        title: "Home",
-        icon: "home",
-        href: "/"
-      },
-      {
-        title: "Login",
-        icon: "perm_identity",
-        href: "/login"
-      },
-      {
-        title: "Register",
-        icon: "supervisor_account",
-        href: "/register"
+    links: ["Proudly powered by Vuetify + firebase"]
+  }),
+  computed: {
+    userIsAuthenticated() {
+      return (
+        this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+      );
+    },
+    menuItems() {
+      let menuItems = [
+        {
+          title: "Home",
+          icon: "home",
+          href: "/"
+        },
+        {
+          title: "Login",
+          icon: "perm_identity",
+          href: "/login"
+        },
+        {
+          title: "Register",
+          icon: "supervisor_account",
+          href: "/register"
+        }
+      ];
+      if (this.userIsAuthenticated) {
+        menuItems = [{ title: "Home", icon: "home", link: "/" }];
       }
-    ]
-  })
+      return menuItems;
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logoutUser");
+      this.$router.push("/login");
+      this.$toast.success("Logout successfully");
+    }
+  }
 };
 </script>

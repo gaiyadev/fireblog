@@ -45,9 +45,7 @@ export default new Vuex.Store({
         date: "2019-05-06"
       }
     ],
-    user: {
-      id: "ghthjhyjyhjyj"
-    },
+    user: null,
     loading: false,
     error: null,
     postCreated: []

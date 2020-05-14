@@ -149,14 +149,7 @@ export default {
     },
     onDismissed() {
       this.$store.dispatch("clearError");
-    },
-    hideErrors() {
-      this.$store.dispatch("clearError");
-      console.log("remove errors");
     }
-  },
-  mounted() {
-    setTimeout(this.hideErrors, 200);
   }
 };
 </script>

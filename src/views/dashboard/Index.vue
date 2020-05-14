@@ -28,6 +28,13 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <template v-slot:append v-if="userIsAuthenticated">
+        <div class="pa-2" v-if="userIsAuthenticated" @click="logout">
+          <v-btn block>
+            <v-icon color="purple">exit_to_app</v-icon>Logout
+          </v-btn>
+        </div>
+      </template>
     </v-navigation-drawer>
 
     <v-app-bar app color="purple darken-4" elevation="7" dark>
@@ -91,6 +98,21 @@ export default {
         link: "/change_password"
       }
     ]
-  })
+  }),
+  computed: {
+    userIsAuthenticated() {
+      return (
+        this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+      );
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logoutUser");
+      this.$router.push("/login");
+      this.$toast.success("Logout successfully");
+    }
+  }
 };
 </script>
