@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    //... Initial state of all blogpost
     loadedBlogPosts: [
       {
         imageURL: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
@@ -45,11 +46,14 @@ export default new Vuex.Store({
         date: "2019-05-06"
       }
     ],
+    //...Initial state for user, loading, error and postCreated
     user: null,
     loading: false,
     error: null,
     postCreated: []
   },
+
+  //...Mutations to change the initial state above i.euser, loading, error etc
   mutations: {
     createPost(state, payload) {
       state.loadedBlogPosts.push(payload);
@@ -67,7 +71,10 @@ export default new Vuex.Store({
       state.user = payload;
     }
   },
+
+  //.. action for asyn operations
   actions: {
+    //...Creating a new post
     createPost({ commit }, payload) {
       commit("isLoading", true);
       commit("clearError");
@@ -78,9 +85,11 @@ export default new Vuex.Store({
         date: payload.date,
         imageURL: payload.imageURL,
       }
-      //Store in firebase
+      //Store a new post in firebase database
       commit("createPost", post);
     },
+
+    //...Registering a new user
     signUpUsers({ commit }, payload) {
       commit("isLoading", true);
       commit("clearError");
@@ -96,6 +105,8 @@ export default new Vuex.Store({
         console.log(error);
       });
     },
+
+    //...Logging a new User in
     signInUser({ commit }, payload) {
       commit("isLoading", true);
       commit("clearError");
@@ -111,32 +122,43 @@ export default new Vuex.Store({
         console.log(error);
       });
     },
+
+    //...Auto sign in user when already login
     autoLoginUser({ commit }, payload) {
       commit("setUser", {
         id: payload.uid
       });
     },
+
+    //...Logging out login users
     logoutUser({ commit }) {
       firebase.auth().signOut().then(() => {
         commit("setUser", null);
       }).catch(error => console.log(error));
     },
+
+    //... clear all state errors
     clearError({ commit }) {
       commit("clearError");
     }
   },
   modules: {},
+
+  //..Getters, to get the current state of the "STATE"
   getters: {
+    //...get all post from the initial state by date created to be user in carousal
     getLoadedBlogPosts(state) {
       return state.loadedBlogPosts.sort((postA, postB) => {
         return postA.date > postB.date;
       });
     },
 
+    //... getting post from a given index array to be user in the frontend in column grid
     getFeatureBlogPost(state, getters) {
       return getters.getLoadedBlogPosts.slice(1, 4);
     },
 
+    //...Get aparticular post by ID and display to the it
     getLoadedBlogPost(state) {
       return postId => {
         return state.loadedBlogPosts.find(post => {
@@ -144,12 +166,18 @@ export default new Vuex.Store({
         });
       };
     },
+
+    //..getting the user state (login Or not login)
     user(state) {
       return state.user;
     },
+
+    //... getting the error state
     error(state) {
       return state.error;
     },
+
+    //...getting the loading(spinner) state
     loading(state) {
       return state.loading;
     },
