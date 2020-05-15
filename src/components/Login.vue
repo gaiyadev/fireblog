@@ -93,7 +93,7 @@ export default {
   watch: {
     user(value) {
       if (value !== null && value !== undefined) {
-        this.$toast.success("Welcome");
+        this.$toast.success("Welcome back");
         this.$router.push("/dashboard");
       }
     }
@@ -104,10 +104,17 @@ export default {
     },
     onLogin() {
       this.$Progress.start();
-      this.$store.dispatch("signInUser", {
-        email: this.email,
-        password: this.password
-      });
+      this.$store
+        .dispatch("signInUser", {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
     },
     onDismissed() {
       this.$store.dispatch("clearError");

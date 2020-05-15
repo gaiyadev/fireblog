@@ -13,8 +13,6 @@ import animateCss from "animate.css";
 import wowJs from "wowjs";
 import VueProgressBar from 'vue-progressbar';
 
-
-
 Vue.config.productionTip = false;
 Vue.use(VuePageTransition);
 Vue.component("alert", alertComp);
@@ -22,8 +20,8 @@ Vue.use(Toast, options);
 Vue.use(animateCss);
 Vue.use(wowJs);
 
-const baroptions = {
-  color: '#bffaf3',
+const barOptions = {
+  color: '#2196F3',
   failedColor: '#874b4b',
   thickness: '5px',
   transition: {
@@ -32,11 +30,10 @@ const baroptions = {
     termination: 300
   },
   autoRevert: true,
-  location: 'left',
+  location: 'top',
   inverse: false
 }
-
-Vue.use(VueProgressBar, baroptions);
+Vue.use(VueProgressBar, barOptions);
 
 const options = {
   // You can set your default options here

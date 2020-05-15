@@ -133,15 +133,18 @@ export default {
       this.$refs.form.validate();
     },
     onSignup() {
+      this.$Progress.start();
       this.$store
         .dispatch("signUpUsers", {
           email: this.email,
           password: this.password
         })
         .then(() => {
-          //this.$toast.success("Account created succesfully");
+          this.$Progress.finish();
         })
         .catch(error => {
+          this.$Progress.fail();
+
           console.log(error);
         });
     },
