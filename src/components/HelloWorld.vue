@@ -1,8 +1,27 @@
 <template>
   <v-container fluid>
+    <v-row class="text-center">
+      <v-col cols="12" sm="12" md="12">
+        <div v-if="loading" class="lds-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <!-- <v-progress-circular :size="70" v-if="loading" :width="7" color="primary" indeterminate></v-progress-circular> -->
+      </v-col>
+    </v-row>
     <v-row wrap class="mt-n7 ml-n10 mr-n11">
       <v-col cols="12" sm="12" md="12">
-        <v-card elevation="7">
+        <v-card elevation="7" v-if="!loading">
           <v-carousel
             cycle
             height="500"
@@ -67,7 +86,8 @@
         </v-img>
 
         <div class="subheading purple--text text-uppercase float-left">
-          {{ post.title }}
+          {{ post.title }} &nbsp; &nbsp; /
+          <span class="primary--text">{{ post.category }}</span>
           <br />
           <span class="primary--text">{{post.date}}</span>
           <br />
@@ -97,11 +117,16 @@ export default {
     },
     smallColumnPost() {
       return this.$store.getters.getFeatureBlogPost;
+    },
+    loading() {
+      return this.$store.getters.loading;
     }
   },
   methods: {
     OnLoadPost(id) {
-      this.$router.push("/readPost/" + id);
+      this.$router.push("/readPost/" + id).catch(err => {
+        console.log(err);
+      });
     }
   }
 };
@@ -165,6 +190,84 @@ export default {
     color: #ffffff;
     padding: 20px;
     opacity: 0.7;
+  }
+}
+.lds-spinner {
+  color: official;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-spinner div {
+  transform-origin: 40px 40px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+.lds-spinner div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 37px;
+  width: 6px;
+  height: 18px;
+  border-radius: 20%;
+  background: purple;
+}
+.lds-spinner div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+.lds-spinner div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+.lds-spinner div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+.lds-spinner div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+.lds-spinner div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+.lds-spinner div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+.lds-spinner div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+.lds-spinner div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+.lds-spinner div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+.lds-spinner div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+.lds-spinner div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+.lds-spinner div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 </style>

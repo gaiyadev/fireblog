@@ -55,6 +55,7 @@
         <vue-page-transition name="fade-in-right">
           <router-view></router-view>
         </vue-page-transition>
+        <vue-progress-bar></vue-progress-bar>
       </v-container>
     </v-content>
 

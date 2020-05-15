@@ -13,9 +13,9 @@ export default new Vuex.Store({
         imageURL: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
         id: "adfadsgmkjlk11",
         title: "Web Development",
+        category: "webdev",
         time: "6:58pm",
         content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore repudiandae delectus ipsum, modi amet harum provident nesciunt repellendus quas enim, expedita laborum dolores corporis aliquam placeat. Magni dolorum labore modi",
-        location: "Kaduna",
         date: "2019-05-06"
       },
       {
@@ -24,7 +24,7 @@ export default new Vuex.Store({
         title: "Graphics design",
         content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore repudiandae delectus ipsum, modi amet harum provident nesciunt repellendus quas enim, expedita laborum dolores corporis aliquam placeat. Magni dolorum labore modi",
         time: "6:58pm",
-        location: "Kaduna",
+        category: "webdev",
         date: "2019-05-06"
       },
       {
@@ -32,8 +32,8 @@ export default new Vuex.Store({
         id: "gtrgtrgrtrththt2",
         title: "Digital marketing",
         time: "6:58pm",
+        category: "Graphics",
         content: " lohteeththththtrhrthrthrthrt3",
-        location: "Kaduna",
         date: "2019-05-06"
       },
       {
@@ -41,7 +41,7 @@ export default new Vuex.Store({
         id: "bhdghgjgjhjhjh4",
         title: "Mobile App dev",
         time: "6:58pm",
-        location: "Kaduna",
+        category: "Mobile",
         content: " lohteeththththtrhrthrthrthrt",
         date: "2019-05-06"
       }
@@ -58,6 +58,10 @@ export default new Vuex.Store({
     createPost(state, payload) {
       state.loadedBlogPosts.push(payload);
     },
+    //..adding to the state objects
+    setLoadeDbPost(state, payload) {
+      state.loadedBlogPosts = payload;
+    },
     isError(state, payload) {
       state.error = payload;
     },
@@ -72,21 +76,85 @@ export default new Vuex.Store({
     }
   },
 
-  //.. action for asyn operations
+  //.. Action for asyn operations
   actions: {
     //...Creating a new post
     createPost({ commit }, payload) {
       commit("isLoading", true);
       commit("clearError");
       const post = {
-        title: payload.post,
+        title: payload.title,
         category: payload.category,
         description: payload.description,
         date: payload.date,
         imageURL: payload.imageURL,
-      }
-      //Store a new post in firebase database
-      commit("createPost", post);
+        timestamp: Date.now(),
+        //id: "rrwghwrhrhrehrhr"
+      };
+      let imageUrl;
+      let key;
+      //... Saving new blogpost to firebase db
+      firebase.database().ref("postsNote").push(post).then((data) => {
+        const key = data.key;
+        console.log(data);
+        // commit("createPost", {
+        //   ...post,
+        //   id: key
+        // });
+        return key;
+
+      }).then(key => {
+        const filename = payload.image.name;
+        const ext = filename.slice(filename.lastIndexOf("."));
+        //Store a new image in store folder
+        return firebase.storage().ref("postsNote/" + key + "." + ext).put(payload.image);
+      }).then(snapshot => {
+        return new Promise((resolve) => {
+          snapshot.ref.getDownloadURL().then(url => {
+            snapshot.downloadURL = url
+            resolve(snapshot);
+          });
+        });
+      }).then((snapshot) => {
+        imageUrl = snapshot.downloadURL;
+        //Store a new image in store folder
+        return firebase.database().ref('postsNote').child(key).update({ imageUrl: imageUrl });
+      }).then(() => {
+        commit("createPost", {
+          ...post,
+          imageUrl: imageUrl,
+          id: key
+        });
+      }).catch((error) => {
+        commit("isLoading", false);
+        console.log(error);
+      });
+    },
+
+    //..getting all blog post from firebase
+    getDBLoadedPost({ commit }) {
+      commit("isLoading", true);
+      firebase.database().ref("postsNote").once("value").then(data => {
+        const allPost = [];
+        const obj = data.val();
+        //..looping all through the post in the firebase database
+        for (let key in obj) {
+          allPost.push({
+            id: key,
+            title: obj[key].title,
+            description: obj[key].description,
+            imageURL: obj[key].imageURL,
+            category: obj[key].category,
+            date: obj[key].date,
+          });
+        }
+        //..saving localy on mutation
+        commit("setLoadeDbPost", allPost);
+        commit("isLoading", false);
+      }).catch(error => {
+        console.log(error);
+        commit("isLoading", false);
+      });
     },
 
     //...Registering a new user

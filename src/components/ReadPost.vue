@@ -114,6 +114,9 @@ export default {
   computed: {
     blogPost() {
       return this.$store.getters.getLoadedBlogPost(this.id);
+    },
+    loading() {
+      return this.$store.getters.loading;
     }
   },
   methods: {

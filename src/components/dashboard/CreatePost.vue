@@ -10,7 +10,7 @@
           <h2 class="purple--text text-uppercase">{{ title }}</h2>
           <v-divider color="purple" class="mt-2"></v-divider>
           <v-form
-            @submit.prevent="onSignup"
+            @submit.prevent="onCreatePost"
             ref="form"
             class="mt-10 mb-6 pr-8 pl-8 pb-8 pt-4"
             v-model="valid"
@@ -30,6 +30,7 @@
             <v-select
               :items="items"
               label="Category"
+              v-model="category"
               error-count="2"
               append-icon="keyboard_arrow_down"
               outlined
@@ -37,10 +38,8 @@
               :rules="menuRules"
               required
             ></v-select>
-
             <v-menu
               ref="menu"
-              v-model="category"
               :close-on-content-click="false"
               :return-value.sync="date"
               transition="scale-transition"
@@ -95,6 +94,7 @@
               label="Content"
               required
             ></v-textarea>
+            <!-- {{category}} -->
             <v-btn
               shaped
               block
@@ -124,7 +124,6 @@ export default {
     return {
       title: "Create Post",
       date: new Date().toISOString().substr(0, 10),
-      category: false,
       modal: false,
       menu2: false,
       valid: true,
@@ -137,8 +136,11 @@ export default {
         v => !!v || "Title is required",
         v => (v && v.length >= 4) || "Title must be less than 10 characters"
       ],
+      category: "",
       menuRules: [v => !!v || "Category is required"],
+
       DateRules: [v => !!v || "Date is required"],
+
       description: "",
       descriptionRules: [
         v => !!v || "Content is required",
@@ -146,7 +148,7 @@ export default {
       ],
       imageURL: [],
       imageRules: [
-        v => !!v || "Image is required",
+        v => !!v || "Post image is required",
         v =>
           !v ||
           (v && v.size < 2000000) ||
@@ -159,12 +161,33 @@ export default {
     validate() {
       this.$refs.form.validate();
     },
-    onSignup() {
-      console.log("register");
+    //..creating new blogpost and saving to db
+    onCreatePost() {
+      this.$Progress.start();
+      const postData = {
+        title: this.post,
+        category: this.category,
+        description: this.description,
+        image: this.image,
+        date: this.date,
+        imageURL: this.imageURL
+      };
+      this.$store
+        .dispatch("createPost", postData)
+        .then(() => {
+          this.$toast.success("POst created succesfully");
+          this.$Progress.finish();
+        })
+        .catch(error => {
+          this.$Progress.fail();
+          console.log(error);
+        });
     },
+    //.. fir picking a file
     pickFile() {
       this.$refs.fileInput.click();
     },
+    //.. for imaage preview
     onFilePicked(event) {
       const files = event.target.files;
       let filename = files[0].name;

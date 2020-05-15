@@ -64,5 +64,11 @@ new Vue({
         this.$store.dispatch("autoLoginUser", user);
       }
     });
+
+    this.$store.dispatch("getDBLoadedPost").then(() => {
+
+    }).catch(error => {
+      console.log(error);
+    });
   }
 }).$mount("#app");
