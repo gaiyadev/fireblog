@@ -177,6 +177,11 @@ export default {
         .then(() => {
           this.$toast.success("Post created succesfully");
           this.$Progress.finish();
+          this.post = "";
+          this.category = "";
+          this.description = "";
+          (this.description = ""), (this.imageURL = "");
+          this.image = "";
         })
         .catch(error => {
           this.$Progress.fail();
