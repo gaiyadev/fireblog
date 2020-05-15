@@ -1,28 +1,29 @@
 <template>
   <v-container fluid>
-    
-    <v-row class="text-center">
+    <v-row wrap align="end" v-for="post in allPost" :key="post.id">
       <v-col cols="3" sm="2" md="3"></v-col>
       <v-col cols="12" sm="8" md="6">
-        <v-card elevation="7">
-          <v-card-title>
-            Nutrition
-            <v-spacer></v-spacer>
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
-          </v-card-title>
-          <v-data-table
-            :headers="headers"
-            color="purple"
-            class="purple--text"
-            :items="desserts"
-            :search="search"
-          ></v-data-table>
+        <v-card class="mx-auto" elevation="7">
+          <v-list-item three-line>
+            <v-list-item-content>
+              <div class="headline mb-4 purple--text">{{ post.title }}</div>
+              <v-list-item-title class="overline mb-1">{{post.date }} 5</v-list-item-title>
+              <v-list-item-subtitle>{{ post.description }}</v-list-item-subtitle>
+            </v-list-item-content>
+
+            <v-list-item-avatar tile size="80">
+              <img :src="post.imageURL" alt="John" />
+            </v-list-item-avatar>
+          </v-list-item>
+
+          <v-card-actions>
+            <v-btn class="error darken-4 white--text" text>
+              <v-icon color="white">clear</v-icon>
+            </v-btn>
+            <v-btn class="primary darken-4 white--text">
+              <v-icon color="white">edit</v-icon>
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
       <v-col cols="3" sm="2" md="3"></v-col>
@@ -33,44 +34,12 @@
 <script>
 export default {
   data() {
-    return {
-      search: "",
-      headers: [
-        {
-          text: "Id",
-          align: "start",
-          sortable: false,
-          value: "name"
-        },
-        { text: "Post", value: "post" },
-        { text: "Category", value: "category" },
-        { text: "Time ", value: "time" }
-      ],
-      desserts: [
-        {
-          name: "1",
-          post: "a web dev",
-          category: "web dev",
-          time: "6pm"
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: "1%"
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: "7%"
-        }
-      ]
-    };
+    return {};
+  },
+  computed: {
+    allPost() {
+      return this.$store.getters.getLoadedBlogPosts;
+    }
   }
 };
 </script>

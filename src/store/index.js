@@ -118,7 +118,7 @@ export default new Vuex.Store({
       }).then((snapshot) => {
         imageUrl = snapshot.downloadURL;
         //Store a new image in store folder
-        return firebase.database().ref('postsNote').child(key).update({ imageUrl: imageUrl });
+        return firebase.database().ref("postsNote").child(key).update({ imageUrl: imageUrl });
       }).then(() => {
         commit("createPost", {
           ...post,

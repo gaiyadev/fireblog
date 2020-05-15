@@ -175,7 +175,7 @@ export default {
       this.$store
         .dispatch("createPost", postData)
         .then(() => {
-          this.$toast.success("POst created succesfully");
+          this.$toast.success("Post created succesfully");
           this.$Progress.finish();
         })
         .catch(error => {
