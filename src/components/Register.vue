@@ -120,18 +120,20 @@ export default {
     }
   },
   watch: {
+    //.. watch for any change during the authentication process
     user(value) {
       if (value !== null && value !== undefined) {
         this.$toast.success("Account created succesfully");
-
         this.$router.push("/dashboard");
       }
     }
   },
   methods: {
+    //.. valicdating input field
     validate() {
       this.$refs.form.validate();
     },
+    //..regidtring a new user
     onSignup() {
       this.$Progress.start();
       this.$store
@@ -144,10 +146,10 @@ export default {
         })
         .catch(error => {
           this.$Progress.fail();
-
           console.log(error);
         });
     },
+    //..close error alert when the close icons is click
     onDismissed() {
       this.$store.dispatch("clearError");
     }

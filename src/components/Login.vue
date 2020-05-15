@@ -81,16 +81,20 @@ export default {
   }),
   computed: {
     error() {
+      //..getting the error state from Vuex
       return this.$store.getters.error;
     },
     loading() {
+      //...gettingg the loading state from Vuex
       return this.$store.getters.loading;
     },
     user() {
+      //...getting the user state from Veux
       return this.$store.getters.user;
     }
   },
   watch: {
+    //.. to keep watch of any changes that will occur during authentication
     user(value) {
       if (value !== null && value !== undefined) {
         this.$toast.success("Welcome back");
@@ -99,9 +103,11 @@ export default {
     }
   },
   methods: {
+    //..validate inputs
     validate() {
       this.$refs.form.validate();
     },
+    //... Login a user to the app
     onLogin() {
       this.$Progress.start();
       this.$store
@@ -116,6 +122,7 @@ export default {
           this.$Progress.fail();
         });
     },
+    //... to close the error when the cancel icon is click
     onDismissed() {
       this.$store.dispatch("clearError");
     }
