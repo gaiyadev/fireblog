@@ -73,7 +73,7 @@ export default {
         .child(id)
         .remove()
         .then(() => {
-          console.log("deletePost successfully");
+          console.log("deleted successfully");
         })
         .catch(err => {
           console.log(err);
