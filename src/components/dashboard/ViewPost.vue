@@ -7,9 +7,9 @@
           <v-list-item three-line>
             <v-list-item-content>
               <div class="headline mb-4 purple--text">{{ post.title }}</div>
-              <v-list-item-title class="overline mb-1">{{ post.date }} 5</v-list-item-title>
+              <v-list-item-title class="overline mb-1">{{ post.date }}</v-list-item-title>
               <v-list-item-subtitle>{{ post.description }}</v-list-item-subtitle>
-              <input type="text" :value="post.id" />
+              <input type="text" name="test" :value="post.id" ref="myTestField" />
               <p v-text="post.id"></p>
             </v-list-item-content>
 
@@ -17,12 +17,11 @@
               <img :src="post.imageURL" alt="John" />
             </v-list-item-avatar>
           </v-list-item>
-
           <v-card-actions>
-            <v-btn large class="error darken-4 white--text" text>
+            <v-btn large class="error darken-4 white--text" @click="deletePost(post.id)" text>
               <v-icon color="white">clear</v-icon>
             </v-btn>
-            <editPostDialog class="ml-n12"></editPostDialog>
+            <editPostDialog class="ml-n12" :editPost="post"></editPostDialog>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -33,8 +32,10 @@
 
 <script>
 import editPostDialog from "@/components/dashboard/EditPostDialog";
+import * as firebase from "firebase";
+
 export default {
-  props: ["id"],
+  props: ["value"],
   components: {
     editPostDialog
   },
@@ -45,7 +46,7 @@ export default {
     allPost() {
       return this.$store.getters.getLoadedBlogPosts;
     },
-    //.. getting by id
+
     getPostId() {
       return this.$store.getters.getLoadedBlogPost(this.id);
     },
@@ -64,8 +65,24 @@ export default {
       return this.$store.getters.user.id === this.getPostId.createdBy;
     }
   },
+  methods: {
+    deletePost(id) {
+      firebase
+        .database()
+        .ref("postsNote")
+        .child(id)
+        .remove()
+        .then(() => {
+          console.log("deletePost successfully");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
   mounted() {
-    console.log(this.getPostId);
+    this.getPostId;
+    console.log(this.$refs.myTestField[0].value);
   }
 };
 </script>

@@ -103,7 +103,7 @@
 </template>
 <script>
 export default {
-  // props: ["viewpost"],
+  props: ["editPost"],
   data() {
     return {
       dialog: false,
@@ -157,9 +157,10 @@ export default {
     }
   },
   created() {
-    // (this.title = this.meetup.title),
-    //   (this.location = this.meetup.location),
-    //   (this.description = this.meetup.description);
+    this.post = this.editPost.title;
+    this.category = this.editPost.title;
+    this.description = this.editPost.description;
+    this.date = this.editPost.date;
   }
 };
 </script>
