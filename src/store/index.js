@@ -79,7 +79,7 @@ export default new Vuex.Store({
   //.. Action for asyn operations
   actions: {
     //...Creating a new post
-    createPost({ commit }, payload) {
+    createPost({ commit, getters }, payload) {
       commit("isLoading", true);
       commit("clearError");
       const post = {
@@ -89,7 +89,8 @@ export default new Vuex.Store({
         date: payload.date,
         imageURL: payload.imageURL,
         timestamp: Date.now(),
-        //id: "rrwghwrhrhrehrhr"
+        createdBy: getters.user.id,
+        //username: getters.user.identifier
       };
       let imageUrl;
       let key;
@@ -146,6 +147,8 @@ export default new Vuex.Store({
             imageURL: obj[key].imageURL,
             category: obj[key].category,
             date: obj[key].date,
+            createdBy: obj[key].createdBy,
+            //  username: obj[key].username
           });
         }
         //..saving localy on mutation

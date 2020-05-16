@@ -74,6 +74,7 @@ const routes = [
       {
         path: "/view_post",
         name: "ViewPost",
+        props: true,
         component: () =>
           import("../views/dashboard/ViewPost"),
         beforeEnter: authGuard,

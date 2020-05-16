@@ -7,8 +7,10 @@
           <v-list-item three-line>
             <v-list-item-content>
               <div class="headline mb-4 purple--text">{{ post.title }}</div>
-              <v-list-item-title class="overline mb-1">{{post.date }} 5</v-list-item-title>
+              <v-list-item-title class="overline mb-1">{{ post.date }} 5</v-list-item-title>
               <v-list-item-subtitle>{{ post.description }}</v-list-item-subtitle>
+              <input type="text" :value="post.id" />
+              <p v-text="post.id"></p>
             </v-list-item-content>
 
             <v-list-item-avatar tile size="80">
@@ -32,7 +34,7 @@
 <script>
 import editPostDialog from "@/components/dashboard/EditPostDialog";
 export default {
-  // props: ["post"],
+  props: ["id"],
   components: {
     editPostDialog
   },
@@ -43,6 +45,10 @@ export default {
     allPost() {
       return this.$store.getters.getLoadedBlogPosts;
     },
+    //.. getting by id
+    getPostId() {
+      return this.$store.getters.getLoadedBlogPost(this.id);
+    },
     //checking if user ia authenticated
     isUserAuthenticated() {
       return (
@@ -51,12 +57,15 @@ export default {
       );
     },
     //..creator of post
-    createdCreator() {
+    userCreatedPost() {
       if (!this.isUserAuthenticated) {
         return false;
       }
-      return this.$store.getters.user.id === this.meetup.createdBy;
+      return this.$store.getters.user.id === this.getPostId.createdBy;
     }
+  },
+  mounted() {
+    console.log(this.getPostId);
   }
 };
 </script>
