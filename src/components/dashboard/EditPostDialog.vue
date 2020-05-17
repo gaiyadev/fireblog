@@ -124,6 +124,7 @@ export default {
   },
   methods: {
     saveChanges() {
+      this.$Progress.start();
       if (
         this.post === "" ||
         this.category === "" ||
@@ -133,6 +134,22 @@ export default {
       ) {
         return false;
       }
+      this.$store
+        .dispatch("updatePostData", {
+          id: this.editPost.id,
+          title: this.title,
+          category: this.category,
+          description: this.description
+          // imageURL: this.imageURL
+        })
+        .then(() => {
+          this.$Progress.finish();
+          this.$toast.success("Post Updated succesfully");
+        })
+        .catch(err => {
+          this.$Progress.fail();
+          console.log(err);
+        });
       //action
       this.dialog = false;
       console.log("ffd");

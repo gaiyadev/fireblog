@@ -62,6 +62,27 @@ export default new Vuex.Store({
     setLoadeDbPost(state, payload) {
       state.loadedBlogPosts = payload;
     },
+    //..Updating post
+    updatePost(state, payload) {
+      const post = state.loadedBlogPosts.find(post => {
+        return post.id === payload.id;
+      });
+      if (payload.title) {
+        post.title = payload.title;
+      }
+      if (payload.category) {
+        post.category = payload.category;
+      }
+      if (payload.description) {
+        post.description = payload.description;
+      }
+      if (payload.date) {
+        post.date = payload.date;
+      }
+      // if (payload.imageURL) {
+      //   post.imageURL = payload.imageURL;
+      // }
+    },
     isError(state, payload) {
       state.error = payload;
     },
@@ -159,7 +180,34 @@ export default new Vuex.Store({
         commit("isLoading", false);
       });
     },
+    //.. Updating New BlogPOst
+    updatePostData({ commit }, payload) {
+      commit("isLoading", true);
+      const updateObj = {};
+      if (payload.title) {
+        updateObj.title = payload.title
+      }
+      if (payload.category) {
+        updateObj.category = payload.category
+      }
+      if (payload.description) {
+        updateObj.description = payload.description
+      }
+      if (payload.date) {
+        updateObj.date = payload.date
+      }
+      // if (payload.imageURL) {
+      //   updateObj.imageURL = payload.imageURL
+      // }
+      firebase.database().ref("meetups").child(payload.id).update(updateObj).then(() => {
+        commit("setLoading", false);
+        commit('updateMeetUp', payload);
 
+      }).catch((error) => {
+        commit("setLoading", false);
+        console.log(error);
+      });
+    },
     //...Registering a new user
     signUpUsers({ commit }, payload) {
       commit("isLoading", true);
