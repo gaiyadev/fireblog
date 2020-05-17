@@ -119,6 +119,8 @@
 </template>
 
 <script>
+import * as firebase from "firebase";
+
 export default {
   data() {
     return {
@@ -217,18 +219,17 @@ export default {
           const obj = data.val();
           //..looping all through the post in the firebase database
           for (let key in obj) {
-            allPost.push({
+            allCategory.push({
               id: obj[key].id,
               category: obj[key].categoryName
               //    date: obj[key].date
             });
           }
           //..pushing to the array
-          items.push(allCategory);
+          this.items.push(allCategory);
         })
         .catch(error => {
           console.log(error);
-          commit("isLoading", false);
         });
     }
   },
