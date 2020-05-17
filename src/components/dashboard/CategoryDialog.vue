@@ -20,7 +20,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="addCategory">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -29,9 +29,26 @@
 
 <script>
 export default {
-  data: () => ({
-    dialog: false,
-    category: ""
-  })
+  data() {
+    return {
+      dialog: false,
+      category: ""
+    };
+  },
+  methods: {
+    addCategory() {
+      this.$store
+        .dispatch("createCategory", {
+          categoryName: this.category
+        })
+        .then(() => {
+          this.dialog = false;
+          console.log("category added succesfully");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
 };
 </script>

@@ -54,7 +54,7 @@ export default {
       desserts: [
         {
           name: "1",
-        //   post: "a web dev",
+          //   post: "a web dev",
           category: "web dev",
           time: "6pm"
         },

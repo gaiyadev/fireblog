@@ -50,11 +50,20 @@ export default new Vuex.Store({
     user: null,
     loading: false,
     error: null,
-    postCreated: []
+    postCreated: [],
+    allCategory: [
+      {
+        id: "grrgrgrgrgr",
+        categoryName: "Sport"
+      }
+    ]
   },
 
   //...Mutations to change the initial state above i.euser, loading, error etc
   mutations: {
+    createCategory(state, payload) {
+      state.createCategory = payload;
+    },
     createPost(state, payload) {
       state.loadedBlogPosts.push(payload);
     },
@@ -199,12 +208,32 @@ export default new Vuex.Store({
       // if (payload.imageURL) {
       //   updateObj.imageURL = payload.imageURL
       // }
-      firebase.database().ref("meetups").child(payload.id).update(updateObj).then(() => {
+      firebase.database().ref("postsNote").child(payload.id).update(updateObj).then(() => {
         commit("setLoading", false);
-        commit('updateMeetUp', payload);
+        commit('updatePost', payload);
 
       }).catch((error) => {
         commit("setLoading", false);
+        console.log(error);
+      });
+    },
+    createCategory({ commit }, payload) {
+      commit("isLoading", true);
+      commit("clearError");
+      const category = {
+        categoryName: payload.category,
+        timestamp: Date.now()
+        //id: "rrwghwrhrhrehrhr"
+      };
+      //... Saving new blogpost to firebase db
+      firebase.database().ref("categoryNote").push(category).then((data) => {
+        const key = data.key;
+        console.log(data);
+        commit("createCategory", {
+          ...category,
+          id: key
+        });
+      }).catch((error) => {
         console.log(error);
       });
     },

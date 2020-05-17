@@ -205,9 +205,36 @@ export default {
       });
       fileReader.readAsDataURL(files[0]);
       this.image = files[0];
+    },
+    //..getting all blog post from firebase
+    getAllCategory() {
+      firebase
+        .database()
+        .ref("CategoryNote")
+        .once("value")
+        .then(data => {
+          const allCategory = [];
+          const obj = data.val();
+          //..looping all through the post in the firebase database
+          for (let key in obj) {
+            allPost.push({
+              id: obj[key].id,
+              category: obj[key].categoryName
+              //    date: obj[key].date
+            });
+          }
+          //..pushing to the array
+          items.push(allCategory);
+        })
+        .catch(error => {
+          console.log(error);
+          commit("isLoading", false);
+        });
     }
   },
-  
+  created() {
+    this.getAllCategory();
+  }
 };
 </script>
 
