@@ -43,13 +43,7 @@ const options = {
 };
 
 let firebaseConfig = {
-  apiKey: "AIzaSyDGCtobydCVNFazi7A4jYjqWmXopPp-a4w",
-  authDomain: "fireblog-b75a0.firebaseapp.com",
-  databaseURL: "https://fireblog-b75a0.firebaseio.com",
-  projectId: "fireblog-b75a0",
-  storageBucket: "fireblog-b75a0.appspot.com",
-  messagingSenderId: "467737114388",
-  appId: "1:467737114388:web:cec14dd5f1d4adbe3a7401"
+  
 };
 new Vue({
   router,
