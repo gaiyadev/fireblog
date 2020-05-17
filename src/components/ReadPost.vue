@@ -47,10 +47,24 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-row>
+      <v-col cols="12" md="8" sm="12">
+        <v-card class="mx-auto" max-width="400" tile>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <v-list-item-title>{{ comment.name }}</v-list-item-title>
+              <v-list-item-subtitle>Secondary line text Lorem ipsum dolor sit amet,</v-list-item-subtitle>
+              <v-list-item-subtitle>consectetur adipiscing elit.</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-card>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col cols="12" md="8" sm="12">
         <v-form
-          @submit.prevent="onSignup"
+          @submit.prevent="onComment"
           ref="form"
           class="mt-10 mb-6 pr-8 pl-8 pb-8 pt-4"
           v-model="valid"
@@ -102,10 +116,13 @@
 </template>
 
 <script>
+import * as firebase from "firebase";
+
 export default {
   //props: ["id"],
   data() {
     return {
+      lists: [],
       id: this.$route.params.id,
       item: 1,
       valid: true,
@@ -137,11 +154,49 @@ export default {
   methods: {
     validate() {
       this.$refs.form.validate();
+    },
+    onComment() {
+      const comment = {
+        name: this.name,
+        comment: this.comment,
+        timestamp: Date.now()
+      };
+      firebase
+        .database()
+        .ref("comments")
+        .push(comment)
+        .then(() => {
+          // console.log(data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getAllComments() {
+      firebase
+        .database()
+        .ref("comments")
+        .on("value", data => {
+          const allComments = [];
+          const obj = data.val();
+          //..looping all through the post in the firebase database
+          for (let key in obj) {
+            allComments.push({
+              id: key,
+              name: obj[key].name,
+              comment: obj[key].comment
+              // timestamp: obj[key].timestamp
+            });
+            this.lists.push(allComments);
+          }
+          //console.log(comment);
+        });
     }
   },
 
-  mounted() {
-    //console.log(this.blogPost);
+  created() {
+    this.getAllComments();
+    console.log("list" + this.lists);
   }
 };
 </script>

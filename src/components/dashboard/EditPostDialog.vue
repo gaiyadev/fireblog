@@ -137,7 +137,7 @@ export default {
       this.$store
         .dispatch("updatePostData", {
           id: this.editPost.id,
-          title: this.title,
+          title: this.post,
           category: this.category,
           description: this.description
           // imageURL: this.imageURL

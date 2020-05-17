@@ -209,7 +209,7 @@ export default new Vuex.Store({
       //   updateObj.imageURL = payload.imageURL
       // }
       firebase.database().ref("postsNote").child(payload.id).update(updateObj).then(() => {
-        commit("setLoading", false);
+        commit("isLoading", false);
         commit('updatePost', payload);
 
       }).catch((error) => {
@@ -221,7 +221,7 @@ export default new Vuex.Store({
       commit("isLoading", true);
       commit("clearError");
       const category = {
-        categoryName: payload.category,
+        category: payload.category,
         timestamp: Date.now()
         //id: "rrwghwrhrhrehrhr"
       };

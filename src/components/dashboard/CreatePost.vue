@@ -208,7 +208,7 @@ export default {
       fileReader.readAsDataURL(files[0]);
       this.image = files[0];
     },
-    //..getting all blog post from firebase
+    //..getting all category from firebase
     getAllCategory() {
       firebase
         .database()
@@ -233,8 +233,8 @@ export default {
         });
     }
   },
-  created() {
-    this.getAllCategory();
+  mounted() {
+    console.log(this.getAllCategory());
   }
 };
 </script>

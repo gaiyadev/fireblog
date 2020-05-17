@@ -39,7 +39,7 @@ export default {
     addCategory() {
       this.$store
         .dispatch("createCategory", {
-          categoryName: this.category
+          category: this.category
         })
         .then(() => {
           this.dialog = false;
